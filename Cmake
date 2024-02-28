@@ -1,0 +1,29 @@
+
+
+project : main.o cal.o mul.o
+
+cc -o project main.o cal.o mul.o
+
+main.o : main.c
+cal.o : cal.c 
+mul.o : mul.c
+
+#make
+#./projct
+
+cmake_minimum_versio()
+project("Hello")
+
+add_library(mylib SHARED test/cal.o test/mul.o )
+add_excecutable(a.out main.o cal.o mul.o)
+target_link_library(a.out mylib )
+
+#cmake -Bbuild
+/// Generate build system
+
+#cd build
+#make
+
+
+mylib.a
+mylib.so

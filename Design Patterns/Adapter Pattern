@@ -1,0 +1,111 @@
+#include<iostream>
+
+
+
+using namespace std;
+
+class Card{
+public:
+virtual void read() = 0;
+virtual ~Card(){}
+
+};
+
+class SD : public Card {
+
+public:
+void read()
+{
+ cout<< "Read SD card\n";
+}
+~SD ()
+{
+  cout<< "Destructor SD \n";
+}
+
+};
+
+class MemoryCard : public Card {
+
+public:
+void read()
+{
+ cout<< "Read MemoryCard\n";
+}
+~MemoryCard ()
+{
+  cout<< "Destructor MemoryCard \n";
+}
+
+};
+
+
+class CardReader {
+public:
+
+CardReader () {
+   insertCard = nullptr;
+
+}
+ enum eType{
+    eSD,
+	eMemoryCard,
+ };
+ 
+ void Insert (int type)
+ {
+ 
+    if(!insertCard){
+    switch(type)
+	{
+	   case eSD :
+	   insertCard = new SD;
+	   break;
+	   
+	   case eMemoryCard :
+	   insertCard = new MemoryCard;
+	   break;
+	   
+	   default:
+	    cout << "nothing\n";
+	}
+	}
+ 
+ }
+ 
+ void ReadCard()
+ {
+    if(insertCard)
+	{
+		insertCard->read();
+	}
+ 
+ }
+ 
+ void RemoveCard()
+ {
+    delete insertCard;
+	insertCard = nullptr;
+ 
+ }
+protected:
+Card *insertCard;
+
+};
+
+int main()
+{
+
+CardReader obj1;
+obj1.Insert(CardReader::eSD);
+obj1.ReadCard();
+obj1.RemoveCard();
+
+obj1.Insert(CardReader::eMemoryCard);
+obj1.ReadCard();
+obj1.RemoveCard();
+mu
+return 0;
+
+}
+

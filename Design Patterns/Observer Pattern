@@ -1,0 +1,99 @@
+#include<iostream>
+#include<vector>
+
+
+using namespace std;
+
+
+
+class observer {
+
+public:
+   virtual void update(int a) = 0;
+   virtual ~observer(){}
+
+};
+
+class Aobserver : public observer{
+
+public:
+   void update(int a)
+   {
+     cout<< "value is "<<a<<endl;
+   }
+   
+   ~Aobserver(){
+     cout<<"A destructor\n";
+   }
+
+};
+
+class Bobserver : public observer{
+
+public:
+   void update(int a)
+   {
+     cout<< "value is "<<a<<endl;
+   }
+   
+   ~Bobserver(){
+     cout<<"B destructor\n";
+   }
+
+};
+
+
+class Subject {
+public:
+Subject()
+{
+  m_val = 0;
+}
+
+bool AddObserver(observer* obj)
+{
+   for (auto i : observerList)
+   {
+      if (i == obj)
+	  return false;
+   }
+   
+   observerList.push_back(obj);
+   obj->update(m_val);
+   return true;
+
+}
+
+void setVal(int a)
+{
+   m_val = a;
+   for (auto i : observerList)
+   {
+      i->update(m_val);
+   }
+   
+
+}
+protected :
+
+vector<observer*> observerList;
+int m_val = 0;
+
+
+};
+
+
+int main()
+{
+   Subject objS;
+   Aobserver objA;
+    Bobserver objB;
+   objS.AddObserver(&objA);
+    objS.AddObserver(&objB);
+	
+	objS.setVal(5);
+   
+   
+   
+
+}
